@@ -34,9 +34,21 @@ function toggleElementVisibility(elementId, show, delay = 0) {
     setTimeout(() => {
         const element = document.getElementById(elementId);
         if (element) {
-            element.style.opacity = show ? '1' : '0';
-            element.style.visibility = show ? 'visible' : 'hidden';
-            // Using visibility instead of display for smoother transitions
+            if (show) {
+                element.style.display = 'flex';  // Show element first
+                // Small delay to ensure display takes effect before opacity
+                setTimeout(() => {
+                    element.style.opacity = '1';
+                    element.style.visibility = 'visible';
+                }, 10);
+            } else {
+                element.style.opacity = '0';
+                element.style.visibility = 'hidden';
+                // Wait for transition to complete before setting display none
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 300); // Adjust this timing to match your CSS transition duration
+            }
         }
     }, delay * 1000);
 }
