@@ -1,47 +1,39 @@
-function startTimer(targetElementId, duration, startDelay, showMilliseconds = false) {
+function startTimer(targetElementId, duration, startDelay, showMilliseconds) {
+    // Get the element where we'll show the timer
     const timerElement = document.getElementById(targetElementId);
-    if (!timerElement) return; // Guard against missing element
-
-    let currentCount = startDelay;
-    timerElement.textContent = currentCount.toString();
-
-    const countdownInterval = setInterval(() => {
-        currentCount--;
-        timerElement.textContent = currentCount.toString();
-        
-        if (currentCount <= 0) {
-            clearInterval(countdownInterval);
-            
-            let startTime = Date.now();
-            let endTime = startTime + (duration * 1000);
-            let animationFrameId;
-          
-            function formatTime(milliseconds) {
-                const minutes = Math.floor(milliseconds / 60000);
-                const seconds = Math.floor((milliseconds % 60000) / 1000);
-                const ms = milliseconds % 1000;
-                return showMilliseconds 
-                    ? `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}:${ms.toString().padStart(3, '0')}`
-                    : `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }
-          
-            function countdown() {
-                const currentTime = Date.now();
-                const remainingTime = endTime - currentTime;
-                
-                if (remainingTime > 0) {
-                    timerElement.textContent = formatTime(remainingTime);
-                    animationFrameId = requestAnimationFrame(countdown);
-                } else {
-                    timerElement.textContent = showMilliseconds ? '00:00:000' : '00:00';
-                    cancelAnimationFrame(animationFrameId);
-                }
-            }
-          
-            animationFrameId = requestAnimationFrame(countdown);
-        }
-    }, 1000);
-}
     
-// Start timer
-startTimer('timerText', 1, 5, false);
+    // Wait for the start delay
+    setTimeout(() => {
+        const startTime = Date.now();
+        const endTime = startTime + (duration * 1000);
+
+        function updateTimer() {
+            const currentTime = Date.now();
+            const timeLeft = endTime - currentTime;
+
+            if (timeLeft <= 0) {
+                timerElement.textContent = '00:00' + (showMilliseconds ? ':000' : '');
+                return;
+            }
+
+            // Calculate minutes, seconds, and milliseconds
+            const minutes = Math.floor(timeLeft / 60000);
+            const seconds = Math.floor((timeLeft % 60000) / 1000);
+            const ms = timeLeft % 1000;
+
+            // Format the time string
+            const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}${showMilliseconds ? ':' + String(ms).padStart(3, '0') : ''}`;
+            
+            timerElement.textContent = timeString;
+            requestAnimationFrame(updateTimer);
+        }
+
+        updateTimer();
+    }, startDelay * 1000);
+}
+
+// Start a 5-second timer after 2 seconds delay, without milliseconds
+startTimer('timerText', 5, 2, false);
+
+// Start a 10-second timer after 1 second delay, with milliseconds
+//startTimer('timerText', 10, 1, true);
