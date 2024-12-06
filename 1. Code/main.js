@@ -3,7 +3,8 @@ function startTimer(targetElementId, duration, startDelay, showMilliseconds = fa
     if (!timerElement) return; // Guard against missing element
 
     setTimeout(() => {
-        let remainingTime = duration * 1000; // Convert to milliseconds
+        let startTime = Date.now();
+        let endTime = startTime + (duration * 1000);
         let animationFrameId;
       
         function formatTime(milliseconds) {
@@ -15,10 +16,12 @@ function startTimer(targetElementId, duration, startDelay, showMilliseconds = fa
                 : `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
         }
       
-        function countdown(timestamp) {
+        function countdown() {
+            const currentTime = Date.now();
+            const remainingTime = endTime - currentTime;
+            
             if (remainingTime > 0) {
                 timerElement.textContent = formatTime(remainingTime);
-                remainingTime -= 16.67; // Approximately 60fps
                 animationFrameId = requestAnimationFrame(countdown);
             } else {
                 timerElement.textContent = showMilliseconds ? '00:00:000' : '00:00';
