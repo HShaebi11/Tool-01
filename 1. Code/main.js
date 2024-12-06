@@ -46,8 +46,12 @@ function hideElement(elementId, delay = 0) {
 }
 
 // Example usage:
-showElement('massege1', 1);  // Makes element visible after 2 seconds
-hideElement('massege1', 5);  // Hides element after 5 seconds
+showElement('massege1', 2);  // Makes element visible after 2 seconds
+hideElement('massege1', 4);  // Hides element after 4 seconds
+
+showElement('countdown', 4);
 
 // Start a 5 second timer in element with id 'timerText' after 5 seconds
 startTimer('timerText', 5, 5, false); // Set to true to show milliseconds
+
+hideElement('countdown', 6);
