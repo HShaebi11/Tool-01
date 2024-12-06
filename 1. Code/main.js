@@ -24,3 +24,5 @@ function startTimer() {
   }
 
 startTimer();
+
+// Hello
