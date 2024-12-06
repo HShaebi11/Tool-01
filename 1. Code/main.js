@@ -26,5 +26,11 @@ function startTimer(targetElementId, duration, startDelay) {
     }, startDelay * 1000);
 }
 
+<<<<<<< HEAD
 // Start a 5 second timer in element with id 'timerText' after 5 seconds
 startTimer('timerText', 5, 5);
+=======
+startTimer();
+
+// Hello
+>>>>>>> 0877ff1f919aa66506f436d43817410817d709a1
