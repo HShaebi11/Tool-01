@@ -29,4 +29,4 @@ function startTimer(targetElementId, duration, startDelay, showMilliseconds = fa
 }
 
 // Start a 5 second timer in element with id 'timerText' after 5 seconds
-startTimer('timerText', 5, 5, true); // Set to true to show milliseconds
+startTimer('timerText', 5, 5, false); // Set to true to show milliseconds
