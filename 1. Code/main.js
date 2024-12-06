@@ -29,50 +29,6 @@ function startTimer(targetElementId, duration, startDelay, showMilliseconds = fa
         animationFrameId = requestAnimationFrame(countdown);
     }, startDelay * 1000);
 }
-
-function toggleElementVisibility(elementId, show, delay = 0) {
-    setTimeout(() => {
-        const element = document.getElementById(elementId);
-        if (element) {
-            if (show) {
-                element.style.display = 'flex';  // Show element first
-                // Small delay to ensure display takes effect before opacity
-                setTimeout(() => {
-                    element.style.opacity = '1';
-                    element.style.visibility = 'visible';
-                }, 10);
-            } else {
-                element.style.opacity = '0';
-                element.style.visibility = 'hidden';
-                // Wait for transition to complete before setting display none
-                setTimeout(() => {
-                    element.style.display = 'none';
-                }, 300); // Adjust this timing to match your CSS transition duration
-            }
-        }
-    }, delay * 1000);
-}
-
-function showElement(elementId, delay = 0) {
-    toggleElementVisibility(elementId, true, delay);
-}
-
-function hideElement(elementId, delay = 0) {
-    toggleElementVisibility(elementId, false, delay);
-}
-
-// Initialize elements
-document.addEventListener('DOMContentLoaded', () => {
-    // Show first message
-    showElement('massage1', 1);
-    hideElement('massage1', 4);
-
-    // Show countdown
-    showElement('countdown', 4);
     
-    // Start timer
-    startTimer('timerText', 5, 5, false);
-    
-    // Hide countdown
-    hideElement('countdown', 6);
-});
+// Start timer
+startTimer('timerText', 5, 5, false);
