@@ -42,7 +42,7 @@ scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
 
 // Get container and setup dimensions
-const container = document.querySelector('.3d-scene');
+const container = document.querySelector('.3d-sence');
 const containerWidth = container.clientWidth;
 const containerHeight = container.clientHeight;
 
