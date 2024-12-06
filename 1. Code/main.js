@@ -32,7 +32,7 @@ function toggleElementVisibility(elementId, show, delay = 0) {
     setTimeout(() => {
         const element = document.getElementById(elementId);
         if (element) {
-            element.style.display = show ? 'flex' : 'none';
+            element.style.display = show ? 'block' : 'none';
         }
     }, delay * 1000); // Delay in seconds
 }
@@ -46,8 +46,8 @@ function hideElement(elementId, delay = 0) {
 }
 
 // Example usage:
-showElement('massege1', 2);  // Makes element visible after 2 seconds
-hideElement('massege1', 4);  // Hides element after 4 seconds
+showElement('massage1', 2);  // Makes element visible after 2 seconds
+hideElement('massage1', 4);  // Hides element after 4 seconds
 
 showElement('countdown', 4);
 
