@@ -39,7 +39,7 @@ function countdown(targetElementId, duration, startDelay, showMilliseconds) {
 }
 
 // Start a 5-second timer after 2 seconds delay, without milliseconds
-countdown('timerText', 5, 2, true);
+//countdown('timerText', 5, 2, true);
 
 // Start a 10-second timer after 1 second delay, with milliseconds
-//countdown('timerText', 10, 1, true);
+countdown('timerText', 10, 1, true);
