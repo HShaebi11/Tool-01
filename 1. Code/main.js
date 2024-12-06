@@ -2,36 +2,28 @@ function countdown(targetElementId, duration, startDelay, showMilliseconds) {
     const timerElement = document.getElementById(targetElementId);
     
     setTimeout(() => {
-        let timeLeft = duration;
-        let ms = 999;
+        const startTime = Date.now();
+        const endTime = startTime + (duration * 1000);
 
         function updateTimer() {
-            const minutes = Math.floor(timeLeft / 60);
-            const seconds = timeLeft % 60;
-            
-            const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}${showMilliseconds ? ':' + String(ms).padStart(3, '0') : ''}`;
-            
-            timerElement.textContent = timeString;
+            const currentTime = Date.now();
+            const timeLeft = endTime - currentTime;
 
-            if (timeLeft <= 0 && ms <= 0) {
+            if (timeLeft <= 0) {
+                timerElement.textContent = '00:00' + (showMilliseconds ? ':000' : '');
                 return;
             }
 
-            if (showMilliseconds) {
-                setTimeout(() => {
-                    ms -= 10;
-                    if (ms < 0) {
-                        ms = 999;
-                        timeLeft--;
-                    }
-                    requestAnimationFrame(updateTimer);
-                }, 10); // Update every 10ms for smooth millisecond display
-            } else {
-                setTimeout(() => {
-                    timeLeft--;
-                    updateTimer();
-                }, 1000);
-            }
+            // Calculate minutes, seconds, and milliseconds
+            const minutes = Math.floor(timeLeft / 60000);
+            const seconds = Math.floor((timeLeft % 60000) / 1000);
+            const ms = timeLeft % 1000;
+
+            // Format the time string
+            const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}${showMilliseconds ? ':' + String(ms).padStart(3, '0') : ''}`;
+            
+            timerElement.textContent = timeString;
+            requestAnimationFrame(updateTimer);
         }
 
         updateTimer();
@@ -39,7 +31,4 @@ function countdown(targetElementId, duration, startDelay, showMilliseconds) {
 }
 
 // Start a 5-second timer after 2 seconds delay, without milliseconds
-//countdown('timerText', 5, 2, true);
-
-// Start a 10-second timer after 1 second delay, with milliseconds
-countdown('timerText', 10, 1, true);
+countdown('timerText', 5, 2, true);
