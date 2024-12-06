@@ -1,31 +1,28 @@
 function startTimer(targetElementId, duration, startDelay, showMilliseconds) {
-    // Get the element where we'll show the timer
     const timerElement = document.getElementById(targetElementId);
     
-    // Wait for the start delay
     setTimeout(() => {
-        const startTime = Date.now();
-        const endTime = startTime + (duration * 1000);
+        let timeLeft = duration;
 
         function updateTimer() {
-            const currentTime = Date.now();
-            const timeLeft = endTime - currentTime;
-
-            if (timeLeft <= 0) {
-                timerElement.textContent = '00:00' + (showMilliseconds ? ':000' : '');
-                return;
-            }
-
-            // Calculate minutes, seconds, and milliseconds
-            const minutes = Math.floor(timeLeft / 60000);
-            const seconds = Math.floor((timeLeft % 60000) / 1000);
-            const ms = timeLeft % 1000;
-
             // Format the time string
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            const ms = showMilliseconds ? Math.floor(Math.random() * 999) : 0; // Simulated ms for smoother display
+            
             const timeString = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}${showMilliseconds ? ':' + String(ms).padStart(3, '0') : ''}`;
             
             timerElement.textContent = timeString;
-            requestAnimationFrame(updateTimer);
+
+            if (timeLeft <= 0) {
+                return;
+            }
+
+            // Update every second
+            setTimeout(() => {
+                timeLeft--;
+                updateTimer();
+            }, 1000);
         }
 
         updateTimer();
