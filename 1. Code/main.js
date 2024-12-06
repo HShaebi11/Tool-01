@@ -2,14 +2,20 @@
 let scene, camera, renderer, model;
 const modelColor = '#ff0000';
 
+// Get the target container element
+const targetElement = document.querySelector('.3d');
+const container = document.createElement('div');
+container.style.width = '100%';
+container.style.height = '100%';
+targetElement.appendChild(container);
+
+// Get container dimensions
+const containerWidth = targetElement.clientWidth;
+const containerHeight = targetElement.clientHeight;
+
 // Scene setup
 scene = new THREE.Scene();
 scene.background = new THREE.Color(0xffffff);
-
-// Get container and setup dimensions
-const container = document.querySelector('.3d-sence');
-const containerWidth = container.clientWidth;
-const containerHeight = container.clientHeight;
 
 // Camera setup
 camera = new THREE.PerspectiveCamera(75, containerWidth / containerHeight, 0.1, 1000);
@@ -19,6 +25,7 @@ camera.position.z = 5;
 renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setSize(containerWidth, containerHeight);
 container.appendChild(renderer.domElement);
+
 
 // Lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 1);
@@ -65,8 +72,8 @@ function animate() {
 
 // Handle window resize
 window.addEventListener('resize', () => {
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
+    const containerWidth = targetElement.clientWidth;
+    const containerHeight = targetElement.clientHeight;
 
     camera.aspect = containerWidth / containerHeight;
     camera.updateProjectionMatrix();
