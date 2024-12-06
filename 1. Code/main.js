@@ -32,7 +32,7 @@ function toggleElementVisibility(elementId, show, delay = 0) {
     setTimeout(() => {
         const element = document.getElementById(elementId);
         if (element) {
-            element.style.display = show ? 'block' : 'none';
+            element.style.display = flex ? 'flex' : 'none';
         }
     }, delay * 1000); // Convert delay to milliseconds
 }
