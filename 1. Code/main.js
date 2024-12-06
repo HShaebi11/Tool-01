@@ -70,7 +70,7 @@ function init() {
     // Load model
     const loader = new THREE.GLTFLoader();
     loader.load(
-        'https://uploads-ssl.webflow.com/assets/smile.gltf', // Replace with your Webflow asset URL
+        'https://raw.githubusercontent.com/HShaebi11/Tool-01/refs/heads/main/2.%20Assets/smile.gltf', // Replace with your Webflow asset URL
         function (gltf) {
             model = gltf.scene;
             
