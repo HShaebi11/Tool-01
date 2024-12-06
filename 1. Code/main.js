@@ -31,4 +31,4 @@ function startTimer(targetElementId, duration, startDelay, showMilliseconds = fa
 }
     
 // Start timer
-startTimer('timerText', 5, 5, false);
+startTimer('timerText', 1, 5, false);
