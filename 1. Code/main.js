@@ -1,7 +1,3 @@
-<!-- Add these CDN links in your head section -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-
 function countdown(targetElementId, duration, startDelay, showMilliseconds) {
     const timerElement = document.getElementById(targetElementId);
     
@@ -37,63 +33,61 @@ function countdown(targetElementId, duration, startDelay, showMilliseconds) {
 // Start a 5-second timer after 2 seconds delay, without milliseconds
 countdown('timerText', 5, 2, true);
 
+// Three.js scene variables
 let scene, camera, renderer, model;
 const modelColor = '#ff0000';
 
-function init() {
-    // Get the container element and its dimensions
-    const container = document.querySelector('.3d-scene');
-    const containerWidth = container.clientWidth;
-    const containerHeight = container.clientHeight;
+// Scene setup
+scene = new THREE.Scene();
+scene.background = new THREE.Color(0xffffff);
 
-    // Scene setup
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
+// Get container and setup dimensions
+const container = document.querySelector('.3d-scene');
+const containerWidth = container.clientWidth;
+const containerHeight = container.clientHeight;
 
-    // Camera setup
-    camera = new THREE.PerspectiveCamera(75, containerWidth / containerHeight, 0.1, 1000);
-    camera.position.z = 5;
+// Camera setup
+camera = new THREE.PerspectiveCamera(75, containerWidth / containerHeight, 0.1, 1000);
+camera.position.z = 5;
 
-    // Renderer setup
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(containerWidth, containerHeight);
-    container.appendChild(renderer.domElement);
+// Renderer setup
+renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(containerWidth, containerHeight);
+container.appendChild(renderer.domElement);
 
-    // Lighting
-    const light = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(light);
+// Lighting
+const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-    directionalLight.position.set(0, 1, 1);
-    scene.add(directionalLight);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(0, 1, 1);
+scene.add(directionalLight);
 
-    // Load model
-    const loader = new THREE.GLTFLoader();
-    loader.load(
-        'https://raw.githubusercontent.com/HShaebi11/Tool-01/refs/heads/main/2.%20Assets/smile.gltf', // Replace with your Webflow asset URL
-        function (gltf) {
-            model = gltf.scene;
-            
-            // Apply color to model
-            model.traverse((node) => {
-                if (node.isMesh) {
-                    node.material.color = new THREE.Color(modelColor);
-                }
-            });
+// Load model
+const loader = new THREE.GLTFLoader();
+loader.load(
+    'https://uploads-ssl.webflow.com/assets/smile.gltf', // Replace with your Webflow asset URL
+    function (gltf) {
+        model = gltf.scene;
+        
+        // Apply color to model
+        model.traverse((node) => {
+            if (node.isMesh) {
+                node.material.color = new THREE.Color(modelColor);
+            }
+        });
 
-            scene.add(model);
-        },
-        function (xhr) {
-            console.log((xhr.loaded / xhr.total * 100) + '% loaded');
-        },
-        function (error) {
-            console.error('An error happened:', error);
-        }
-    );
+        scene.add(model);
+    },
+    function (xhr) {
+        console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+    },
+    function (error) {
+        console.error('An error happened:', error);
+    }
+);
 
-    animate();
-}
-
+// Animation loop
 function animate() {
     requestAnimationFrame(animate);
     
@@ -105,17 +99,14 @@ function animate() {
 }
 
 // Handle window resize
-window.addEventListener('resize', onWindowResize, false);
-
-function onWindowResize() {
-    const container = document.querySelector('.3d-scene');
+window.addEventListener('resize', () => {
     const containerWidth = container.clientWidth;
     const containerHeight = container.clientHeight;
 
     camera.aspect = containerWidth / containerHeight;
     camera.updateProjectionMatrix();
     renderer.setSize(containerWidth, containerHeight);
-}
+});
 
-// Start everything
-init();
+// Start animation
+animate();
