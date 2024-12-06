@@ -45,9 +45,9 @@ function hideElement(elementId, delay = 0) {
     toggleElementVisibility(elementId, false, delay);
 }
 
-// Start a 5 second timer in element with id 'timerText' after 5 seconds
-startTimer('timerText', 5, 5, false); // Set to true to show milliseconds
-
 // Example usage:
 showElement('massege1', 1);  // Makes element visible after 2 seconds
 hideElement('massege1', 5);  // Hides element after 5 seconds
+
+// Start a 5 second timer in element with id 'timerText' after 5 seconds
+startTimer('timerText', 5, 5, false); // Set to true to show milliseconds
